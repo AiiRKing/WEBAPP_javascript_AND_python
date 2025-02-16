@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask + JavaScript</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" >
+    
+    function showMessage() {
+        alert("Hello from JavaScript!");
+    }
+    
+fetch("http://127.0.0.1:5000/api/data")
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error(error));
+
+const socket = io();
+
+    socket.on("connect", () => {
+        console.log("Connected to server");
+        socket.emit("message", {"text": "Hello from JavaScript!"});
+    });
+
+    socket.on("response", (data) => {
+        console.log("Received response:", data);
+    });
+
+</script>
+
+</head>
+
+<body>
+    <h1>Flask and JavaScript Integration</h1>
+    <button onclick="showMessage()">Click Me</button>
+</body>
+
+</html>
